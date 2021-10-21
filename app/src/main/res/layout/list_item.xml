@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:clickable="true"
+    android:id="@+id/list_item">
+
+    <TextView
+        android:id="@+id/list_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@id/climbing_picture"
+        android:clickable="true"
+        android:text="Test1" />
+
+    <TextView
+        android:id="@+id/list_item_ort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/list_item_name"
+        android:layout_below="@id/list_item_name"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@id/climbing_picture"
+        android:text="Test2" />
+
+    <ImageButton
+        android:id="@+id/add_favourite_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="#00ffffff"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_star_button" />
+
+
+    <ImageView
+        android:id="@+id/climbing_picture"
+        android:layout_width="148dp"
+        android:layout_height="196dp"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/climbing_collection2" />
+
+
+</RelativeLayout>
