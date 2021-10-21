@@ -23,7 +23,7 @@ import android.widget.Toast;
  * Use the {@link FavoriteFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FavoriteFragment extends Fragment {
+public class FavoriteFragment extends BaseListFragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,10 +33,6 @@ public class FavoriteFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
-    ContentDBHelper dbHelper;
-    Toast toastAddToFavorite;
-    Toast toastRemoveFromFavorite;
 
     public FavoriteFragment() {
         // Required empty public constructor
@@ -95,80 +91,5 @@ public class FavoriteFragment extends Fragment {
         return view;
     }
 
-    public class CustomCursorAdapter extends CursorAdapter {
 
-
-        public CustomCursorAdapter(Context context, Cursor cursor) {
-            super(context, cursor, 0);
-        }
-
-        // The newView method is used to inflate a new view and return it,
-        // you don't bind any data to the view at this point.
-        @Override
-        public View newView(Context context, Cursor cursor, ViewGroup parent) {
-            return LayoutInflater.from(context).inflate(R.layout.list_item, parent, false);
-        }
-
-        // The bindView method is used to bind all data to a given view
-        // such as setting the text on a TextView.
-        @Override
-        public void bindView(View view, Context context, Cursor cursor) {
-            // Find fields to populate in inflated template
-            TextView listName = (TextView) view.findViewById(R.id.list_item_name);
-            TextView listOrt = (TextView) view.findViewById(R.id.list_item_ort);
-            // Extract properties from cursor
-            int id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
-            String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
-            String ort = cursor.getString(cursor.getColumnIndexOrThrow("ort"));
-            int isFavorite = cursor.getInt(cursor.getColumnIndexOrThrow("isFavorite"));
-            // Populate fields with extracted properties
-            listName.setText(name);
-            listOrt.setText(ort);
-
-            ImageButton addToFavoriteButton = (ImageButton) view.findViewById(R.id.add_favourite_btn);
-            if(isFavorite == 0){
-                addToFavoriteButton.setImageResource(R.drawable.ic_star);
-            }else{
-                addToFavoriteButton.setImageResource(R.drawable.ic_star_filled);
-            }
-            addToFavoriteButton.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v){
-                    ContentValues values = new ContentValues();
-                    updateIsFavorite(id, addToFavoriteButton);
-                }
-            });
-        }
-    }
-
-    public void updateIsFavorite(int id, ImageButton addToFavoriteButton){
-        ContentValues values = new ContentValues();
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        Cursor cursor = db.query(
-                "entry", // Tabellenname
-                new String[]{ "_id", "name", "ort", "isFavorite"}, // Spaltennamen
-                "_id = " +id,
-                null,
-                null,
-                null,
-                "_id ASC"); // Spaltenname
-        int isFavorite = 0;
-        while(cursor.moveToNext()){
-            isFavorite = cursor.getInt(3);
-            Log.d(null, "" + isFavorite);
-            Log.d(null, cursor.getInt(0) + " | " + cursor.getString(1) + " | " + cursor.getInt(3));
-        }
-        if(isFavorite == 1){
-            addToFavoriteButton.setImageResource(R.drawable.ic_star);
-            addToFavoriteButton.setTag(R.drawable.ic_star);
-            values.put("isFavorite", 0);
-            toastRemoveFromFavorite.show();
-        }else{
-            addToFavoriteButton.setImageResource(R.drawable.ic_star_filled);
-            addToFavoriteButton.setTag(R.drawable.ic_star_filled);
-            values.put("isFavorite", 1);
-            toastAddToFavorite.show();
-        }
-        db.update("entry", values, "_id = ?", new String[]{String.valueOf(id)});
-    }
 }
