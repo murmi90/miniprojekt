@@ -62,19 +62,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        LocationDataStruckture locationDataStruckture1 = new LocationDataStruckture("Brüggler", "Bern", 3, 8);
-        LocationDataStruckture locationDataStruckture2 = new LocationDataStruckture("Beltzli", "Basel", 5, 7);
-        LocationDataStruckture locationDataStruckture3 = new LocationDataStruckture("Flies", "Glarus", 4, 9);
-
     }
 
     private void openFragment(Fragment fragment) {
-        //Log.d(TAG, "openFragment: ");
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        //this is a helper class that replaces the container with the fragment. You can replace or add fragments.
-        transaction.replace(R.id.container, fragment);
-        transaction.addToBackStack(null); //if you add fragments it will be added to the backStack. If you replace the fragment it will add only the last fragment
-        transaction.commit(); // commit() performs the action
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     private void createDB(){
@@ -84,22 +78,32 @@ public class MainActivity extends AppCompatActivity {
         values.put("name", "blubname1"); // Spaltenname
         values.put("ort", "blubort1");
         values.put("isFavorite", 0);
+        values.put("levelMin", 3);
+        values.put("levelMax", 7);
         db.insert("entry", null, values); // Tabellenname
         values.put("name", "blubname2");
         values.put("ort", "blubort2");
         values.put("isFavorite", 0);
+        values.put("levelMin", 5);
+        values.put("levelMax", 9);
         db.insert("entry", null, values);
         values.put("name", "blubname3");
         values.put("ort", "blubort3");
         values.put("isFavorite", 0);
+        values.put("levelMin", 4);
+        values.put("levelMax", 8);
         db.insert("entry", null, values);
         values.put("name", "blubname4");
         values.put("ort", "blubort4");
         values.put("isFavorite", 0);
+        values.put("levelMin", 5);
+        values.put("levelMax", 7);
         db.insert("entry", null, values);
         values.put("name", "blubname5");
         values.put("ort", "blubort5");
         values.put("isFavorite", 0);
+        values.put("levelMin", 4);
+        values.put("levelMax", 7);
         db.insert("entry", null, values);
         db.close();
     }

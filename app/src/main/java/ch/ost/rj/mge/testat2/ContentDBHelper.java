@@ -13,7 +13,8 @@ public class ContentDBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE entry (" +
                 " _id INTEGER PRIMARY KEY," +
-                " name TEXT," + " ort TEXT," + "isFavorite INTEGER)");
+                " name TEXT," + " ort TEXT," + " isFavorite INTEGER," +
+                " levelMin INTEGER," + "levelMax INTEGER)");
     }
     public void onUpgrade(SQLiteDatabase db, int old, int neww) {
 // Falls nötig: Migration zu neuer Datenbank-Version

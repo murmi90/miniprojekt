@@ -21,6 +21,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.io.Console;
 import java.util.ArrayList;
 
@@ -78,7 +80,7 @@ public class ListFragment extends BaseListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_list, container, false);
+        View fragment = inflater.inflate(R.layout.fragment_list, container, false);
 
         dbHelper = new ContentDBHelper(getActivity());
         // Daten auslesen
@@ -86,7 +88,7 @@ public class ListFragment extends BaseListFragment {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.query(
                 "entry", // Tabellenname
-                new String[]{ "_id", "name", "ort", "isFavorite" }, // Spaltennamen
+                new String[]{ "_id", "name", "ort", "isFavorite", "levelMin", "levelMax" }, // Spaltennamen
                 null,
                 null,
                 null,
@@ -96,15 +98,25 @@ public class ListFragment extends BaseListFragment {
         toastAddToFavorite = Toast.makeText(getActivity().getApplicationContext(), "Add to Favorite", Toast.LENGTH_SHORT);
         toastRemoveFromFavorite = Toast.makeText(getActivity().getApplicationContext(), "Removed from Favorite", Toast.LENGTH_SHORT);
 
-        ListView listView = (ListView) view.findViewById(R.id.listViewForList);
+        ListView listView = (ListView) fragment.findViewById(R.id.listViewForList);
+        listView.setEmptyView(fragment.findViewById(R.id.emptyListElement));
         CustomCursorAdapter listAdapter = new CustomCursorAdapter(getContext(), cursor);
         // Attach cursor adapter to the ListView
         listView.setAdapter(listAdapter);
         //cursor.close();
         //db.close();
 
+        FloatingActionButton addButton = (FloatingActionButton) fragment.findViewById(R.id.addLocation);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(null, "dubdiduh!!");
+                Intent testActivityIntent = new Intent(getActivity(), AddLocationActivity.class);
+                startActivity(testActivityIntent);
+            }
+        });
 
-        return view;
+        return fragment;
     }
 
 

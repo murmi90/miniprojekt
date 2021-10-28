@@ -1,6 +1,8 @@
 package ch.ost.rj.mge.testat2;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,13 +11,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link SearchFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SearchFragment extends Fragment {
+public class SearchFragment extends BaseListFragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -62,14 +67,28 @@ public class SearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         View fragment = inflater.inflate(R.layout.fragment_search, container, false);
         // Inflate the layout for this fragment
-        Button testButton = fragment.findViewById(R.id.testButton);
-        testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent testActivityIntent = new Intent(getActivity(), TestActivity.class);
-                startActivity(testActivityIntent);
-            }
-        });
+        dbHelper = new ContentDBHelper(getActivity());
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.query(
+                "entry", // Tabellenname
+                new String[]{ "_id", "name", "ort", "isFavorite", "levelMin", "levelMax" }, // Spaltennamen
+                null,
+                null,
+                null,
+                null,
+                "_id ASC"); // Spaltenname
+
+        toastAddToFavorite = Toast.makeText(getActivity().getApplicationContext(), "Add to Favorite", Toast.LENGTH_SHORT);
+        toastRemoveFromFavorite = Toast.makeText(getActivity().getApplicationContext(), "Removed from Favorite", Toast.LENGTH_SHORT);
+
+        ListView listView = (ListView) fragment.findViewById(R.id.listViewForSearch);
+        listView.setEmptyView(fragment.findViewById(R.id.emptyListElement));
+        CustomCursorAdapter listAdapter = new CustomCursorAdapter(getContext(), cursor);
+        // Attach cursor adapter to the ListView
+        listView.setAdapter(listAdapter);
+
+        androidx.appcompat.widget.SearchView searchView = fragment.findViewById(R.id.search_field);
+
 
         return fragment;
     }

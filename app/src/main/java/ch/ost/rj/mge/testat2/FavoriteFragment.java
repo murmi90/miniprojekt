@@ -68,7 +68,7 @@ public class FavoriteFragment extends BaseListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_favorite, container, false);
+        View fragment = inflater.inflate(R.layout.fragment_favorite, container, false);
 
         toastAddToFavorite = Toast.makeText(getActivity().getApplicationContext(), "Add to Favorite", Toast.LENGTH_SHORT);
         toastRemoveFromFavorite = Toast.makeText(getActivity().getApplicationContext(), "Removed from Favorite", Toast.LENGTH_SHORT);
@@ -77,18 +77,19 @@ public class FavoriteFragment extends BaseListFragment {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.query(
                 "entry", // Tabellenname
-                new String[]{ "_id", "name", "ort", "isFavorite" }, // Spaltennamen
+                new String[]{ "_id", "name", "ort", "isFavorite", "levelMin", "levelMax" },
                 "isFavorite = 1",
                 null,
                 null,
                 null,
                 "_id ASC"); // Spaltenname
-        ListView listView = (ListView) view.findViewById(R.id.listViewForFavorites);
+        ListView listView = (ListView) fragment.findViewById(R.id.listViewForFavorites);
+        listView.setEmptyView(fragment.findViewById(R.id.emptyListElement));
         CustomCursorAdapter listAdapter = new CustomCursorAdapter(getContext(), cursor);
         // Attach cursor adapter to the ListView
         listView.setAdapter(listAdapter);
 
-        return view;
+        return fragment;
     }
 
 

@@ -44,14 +44,19 @@ public class BaseListFragment extends Fragment {
             // Find fields to populate in inflated template
             TextView listName = (TextView) view.findViewById(R.id.list_item_name);
             TextView listOrt = (TextView) view.findViewById(R.id.list_item_ort);
+            TextView listLevel = (TextView) view.findViewById(R.id.list_item_level);
             // Extract properties from cursor
             int id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
             String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
             String ort = cursor.getString(cursor.getColumnIndexOrThrow("ort"));
             int isFavorite = cursor.getInt(cursor.getColumnIndexOrThrow("isFavorite"));
+            int levelMin = cursor.getInt(cursor.getColumnIndexOrThrow("levelMin"));
+            int levelMax = cursor.getInt(cursor.getColumnIndexOrThrow("levelMax"));
+            String level = levelMin + " - " + levelMax;
             // Populate fields with extracted properties
             listName.setText(name);
             listOrt.setText(ort);
+            listLevel.setText(level);
 
             ImageButton addToFavoriteButton = (ImageButton) view.findViewById(R.id.add_favourite_btn);
             if(isFavorite == 0){
@@ -71,7 +76,8 @@ public class BaseListFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     Log.d(null, "dubdiduh!!");
-                    Intent testActivityIntent = new Intent(getActivity(), TestActivity.class);
+                    Intent testActivityIntent = new Intent(getActivity(), LocationDetailActivity.class);
+                    testActivityIntent.putExtra("id", id);
                     startActivity(testActivityIntent);
                 }
             });
@@ -83,13 +89,13 @@ public class BaseListFragment extends Fragment {
         ContentValues values = new ContentValues();
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         Cursor cursor = db.query(
-                "entry", // Tabellenname
-                new String[]{ "_id", "name", "ort", "isFavorite"}, // Spaltennamen
+                "entry",
+                new String[]{ "_id", "name", "ort", "isFavorite"},
                 "_id = " +id,
                 null,
                 null,
                 null,
-                "_id ASC"); // Spaltenname
+                "_id ASC");
         int isFavorite = 0;
         while(cursor.moveToNext()){
             isFavorite = cursor.getInt(3);
