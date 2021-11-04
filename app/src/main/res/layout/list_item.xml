@@ -16,7 +16,6 @@
         android:layout_marginTop="16dp"
         android:layout_toEndOf="@id/climbing_picture"
         android:text="@string/placeholder"
-        android:textColor="@color/black"
         android:textSize="24sp" />
 
     <TextView

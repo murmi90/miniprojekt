@@ -76,17 +76,16 @@ public class FavoriteFragment extends BaseListFragment {
         dbHelper = new ContentDBHelper(getActivity());
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.query(
-                "entry", // Tabellenname
+                "entry",
                 new String[]{ "_id", "name", "ort", "isFavorite", "levelMin", "levelMax" },
                 "isFavorite = 1",
                 null,
                 null,
                 null,
-                "_id ASC"); // Spaltenname
+                "_id ASC");
         ListView listView = (ListView) fragment.findViewById(R.id.listViewForFavorites);
         listView.setEmptyView(fragment.findViewById(R.id.emptyListElement));
         CustomCursorAdapter listAdapter = new CustomCursorAdapter(getContext(), cursor);
-        // Attach cursor adapter to the ListView
         listView.setAdapter(listAdapter);
 
         return fragment;

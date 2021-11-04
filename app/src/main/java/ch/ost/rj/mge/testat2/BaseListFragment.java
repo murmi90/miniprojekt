@@ -41,11 +41,11 @@ public class BaseListFragment extends Fragment {
         // such as setting the text on a TextView.
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
-            // Find fields to populate in inflated template
+
             TextView listName = (TextView) view.findViewById(R.id.list_item_name);
             TextView listOrt = (TextView) view.findViewById(R.id.list_item_ort);
             TextView listLevel = (TextView) view.findViewById(R.id.list_item_level);
-            // Extract properties from cursor
+
             int id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
             String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
             String ort = cursor.getString(cursor.getColumnIndexOrThrow("ort"));
@@ -53,7 +53,7 @@ public class BaseListFragment extends Fragment {
             int levelMin = cursor.getInt(cursor.getColumnIndexOrThrow("levelMin"));
             int levelMax = cursor.getInt(cursor.getColumnIndexOrThrow("levelMax"));
             String level = levelMin + " - " + levelMax;
-            // Populate fields with extracted properties
+
             listName.setText(name);
             listOrt.setText(ort);
             listLevel.setText(level);
@@ -75,7 +75,6 @@ public class BaseListFragment extends Fragment {
             item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.d(null, "dubdiduh!!");
                     Intent testActivityIntent = new Intent(getActivity(), LocationDetailActivity.class);
                     testActivityIntent.putExtra("id", id);
                     startActivity(testActivityIntent);
@@ -99,8 +98,6 @@ public class BaseListFragment extends Fragment {
         int isFavorite = 0;
         while(cursor.moveToNext()){
             isFavorite = cursor.getInt(3);
-            Log.d(null, "" + isFavorite);
-            Log.d(null, cursor.getInt(0) + " | " + cursor.getString(1) + " | " + cursor.getInt(3));
         }
         if(isFavorite == 1){
             addToFavoriteButton.setImageResource(R.drawable.ic_star);

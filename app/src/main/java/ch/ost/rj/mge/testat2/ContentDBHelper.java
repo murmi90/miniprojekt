@@ -14,7 +14,7 @@ public class ContentDBHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE entry (" +
                 " _id INTEGER PRIMARY KEY," +
                 " name TEXT," + " ort TEXT," + " isFavorite INTEGER," +
-                " levelMin INTEGER," + "levelMax INTEGER)");
+                " levelMin INTEGER," + " levelMax INTEGER," + " longitude DOUBLE," + " latitude DOUBLE)");
     }
     public void onUpgrade(SQLiteDatabase db, int old, int neww) {
 // Falls nötig: Migration zu neuer Datenbank-Version

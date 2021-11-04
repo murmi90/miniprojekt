@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Climbing topo</string>
     <string name="title_favorites">Favorites</string>
-    <string name="title_search">Search</string>
+    <string name="title_search">Local</string>
     <string name="title_list">List</string>
     <string name="title_map">Map</string>
     <string name="placeholder">Placeholder</string>
@@ -16,6 +16,10 @@
     <string name="levelMin">Lowest degree of difficulty:</string>
     <string name="levelMax">Highest degree of difficulty:</string>
     <string name="addEntryButton">Create new entry</string>
+    <string name="noEntryFound">no results found</string>
+    <string name="searching">suchen...</string>
+    <string name="locationAccessDenied">Location access denied</string>
+
 
     <string name="title_activity_location_object">LocationObject</string>
     <string name="action_settings">Settings</string>

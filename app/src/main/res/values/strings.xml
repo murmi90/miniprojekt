@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Kletter topo</string>
     <string name="title_favorites">Favoriten</string>
-    <string name="title_search">Suche</string>
+    <string name="title_search">Lokal</string>
     <string name="title_list">Liste</string>
     <string name="title_map">Karte</string>
     <string name="placeholder">Platzhalter</string>
@@ -15,6 +15,10 @@
     <string name="levelMin">Tiefster Schwierigkeitsgrad:</string>
     <string name="levelMax">Höchster Schwierigkeitsgrad:</string>
     <string name="addEntryButton">Kreiere neuen Eintrag</string>
+    <string name="noEntryFound">Keine Resultate gefunden</string>
+    <string name="searching">searching...</string>
+    <string name="locationAccessDenied">Standortzugriff verweigert</string>
+
 
     <string name="title_activity_location_object">LocationObject</string>
     <string name="action_settings">Settings</string>

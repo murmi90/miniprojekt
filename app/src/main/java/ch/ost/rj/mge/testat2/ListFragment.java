@@ -43,9 +43,6 @@ public class ListFragment extends BaseListFragment {
     private String mParam1;
     private String mParam2;
 
-    ArrayList<LocationDataStruckture> dataModel;
-    ArrayList<ContentDBHelper> list;
-
     public ListFragment() {
         // Required empty public constructor
     }
@@ -83,17 +80,16 @@ public class ListFragment extends BaseListFragment {
         View fragment = inflater.inflate(R.layout.fragment_list, container, false);
 
         dbHelper = new ContentDBHelper(getActivity());
-        // Daten auslesen
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.query(
-                "entry", // Tabellenname
-                new String[]{ "_id", "name", "ort", "isFavorite", "levelMin", "levelMax" }, // Spaltennamen
+                "entry",
+                new String[]{ "_id", "name", "ort", "isFavorite", "levelMin", "levelMax" },
                 null,
                 null,
                 null,
                 null,
-                "_id ASC"); // Spaltenname
+                "_id ASC");
 
         toastAddToFavorite = Toast.makeText(getActivity().getApplicationContext(), "Add to Favorite", Toast.LENGTH_SHORT);
         toastRemoveFromFavorite = Toast.makeText(getActivity().getApplicationContext(), "Removed from Favorite", Toast.LENGTH_SHORT);
@@ -101,16 +97,12 @@ public class ListFragment extends BaseListFragment {
         ListView listView = (ListView) fragment.findViewById(R.id.listViewForList);
         listView.setEmptyView(fragment.findViewById(R.id.emptyListElement));
         CustomCursorAdapter listAdapter = new CustomCursorAdapter(getContext(), cursor);
-        // Attach cursor adapter to the ListView
         listView.setAdapter(listAdapter);
-        //cursor.close();
-        //db.close();
 
         FloatingActionButton addButton = (FloatingActionButton) fragment.findViewById(R.id.addLocation);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(null, "dubdiduh!!");
                 Intent testActivityIntent = new Intent(getActivity(), AddLocationActivity.class);
                 startActivity(testActivityIntent);
             }
@@ -123,4 +115,4 @@ public class ListFragment extends BaseListFragment {
 
 
 
-} //end fragment
+}
